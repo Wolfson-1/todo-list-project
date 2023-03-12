@@ -28,6 +28,19 @@ const createUi = (() => {
 
 
 // create array for projects & todo items
+let projectsArr = [{
+        name: "shopping",
+        todo: []
+    },
+    {
+        name: "work",
+        todo: []
+    },
+    {
+        name: "this week",
+        todo: []
+    }]
+
 
 // create constructors for adding new project & adding todo lists
     // add required properties for each item
