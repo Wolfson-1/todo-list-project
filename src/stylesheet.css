@@ -26,6 +26,8 @@ body {
     grid-column: 1 / 2;
     grid-row: 2 / 5;
     background-color: blueviolet;
+    display:flex;
+    flex-direction: column;
 }
 
 .mainPanel {
@@ -33,3 +35,19 @@ body {
     grid-row: 2 / 5;
     background-color: greenyellow;
 }
+
+.projContainer {
+    height: 80%;
+    width: 100%;
+    border-bottom: solid black;
+    background-color: azure;
+    overflow: scroll;
+}
+
+.navPanel > button {
+    justify-content: flex-end;
+    align-items:flex-end;
+    width: 15%;
+    margin: 5px;
+}
+
