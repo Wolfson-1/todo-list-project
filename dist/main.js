@@ -1,0 +1,1 @@
+document.querySelector(".content").innerText="Im working";
