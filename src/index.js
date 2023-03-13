@@ -35,9 +35,10 @@ const createUi = (() => {
   navPanel.appendChild(projContainer);
   navPanel.appendChild(projAddButton);
 
-})();
+  //event listener for add button
 
-// add event listeners
+
+})();
 
 
 // setup interactive elements for each window
@@ -46,20 +47,69 @@ const createUi = (() => {
 let projectsArr = [
   {
     name: "shopping",
-    todo: [],
+    todo: ["test","test","test"],
   },
   {
     name: "work",
-    todo: [],
+    todo: ["test2","test2","Test2"],
   },
   {
-    name: "this week",
-    todo: [],
+    name: "thisweek",
+    todo: ["test3","test3","Test3"],
   },
 ];
 
 
-// create constructors for adding new project & adding todo lists
+// Dom loaders for proj & todos (for now until build into objects)
+
+//dom loader for projects list & todo's
+const loadProjDom = () => {
+ projectsArr.forEach((item) => {
+  const projContainer = document.querySelector(".projContainer"); 
+  
+  const proj = document.createElement("div");
+  proj.classList.add(item.name);
+
+  proj.innerText = `${item.name}
+  Todo: ${item.todo.length}`
+
+  projContainer.appendChild(proj);
+
+    // function to remove all child elements
+    const removeAllChildNodes = (parent) => {
+      while (parent.firstChild) {
+          parent.removeChild(parent.firstChild);
+      }
+  };
+
+    // event listener for div to load todos to main nav on click
+  proj.addEventListener('click', (e) => {
+
+    const mainNav = document.querySelector(".mainPanel");
+
+    removeAllChildNodes(mainNav);
+
+    const newArr = projectsArr.filter((item) => item.name === e.target.className).map((x) => x.todo);
+
+    console.log(newArr);
+
+    newArr[0].forEach((item) => {
+
+      const todoDiv = document.createElement("div");
+      todoDiv.classList.add("todoDiv");
+      todoDiv.innerText = item;
+      mainNav.appendChild(todoDiv);
+    }) 
+
+  });
+
+
+
+ })};
+
+loadProjDom(); 
+
+// dom event listener for loading todos to main
 
 // project constructor
 const projectConstructor = (name) => {
@@ -89,11 +139,10 @@ const projectConstructor = (name) => {
   return {name, todo, projectConstructor, pushToArr, delFromArr}
 }
 
+//todo constructor
+
+
 // todo constructor
   // add required properties for each item
   // add methods for adding, deleting, nessicary interaction
   // add methods for implementing to dom
-
-
-
-
