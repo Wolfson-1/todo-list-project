@@ -1,9 +1,41 @@
 import "./stylesheet.css";
 
+// create array for projects & todo items
+let projectsArr = [
+  {
+    name: "shopping",
+    todo: ["test", "test", "test"],
+  },
+  {
+    name: "work",
+    todo: ["test2", "test2", "Test2"],
+  },
+  {
+    name: "thisweek",
+    todo: ["test3", "test3", "Test3"],
+  },
+];
+
+// project constructor
+const projectConstructor = (projName) => {
+  let todo = [];
+
+  const pushToArr = () => {
+    projectsArr.push(this);
+  };
+
+  const delFromArr = () => {
+    const myArray = projectsArr.filter((item) => item.name !== this.name);
+
+    projectsArr = myArray;
+  };
+
+  return {projName, todo, pushToArr, delFromArr};
+};
+
 // setup UI for todo page
 // eslint-disable-next-line no-unused-vars
 const createUi = (() => {
-  
   // main divs
   const mainDiv = document.querySelector(".content");
 
@@ -32,117 +64,94 @@ const createUi = (() => {
   projAddButton.classList.add("addButton");
   projAddButton.innerText = "Add";
 
+  const newProjForm = document.createElement("form");
+  const nameInput = document.createElement("input")
+  nameInput.classList.add("nameInput");
+  nameInput.type = "text"; 
+  nameInput.placeholder = "project name"; 
+
+
+
   navPanel.appendChild(projContainer);
   navPanel.appendChild(projAddButton);
+  navPanel.appendChild(nameInput); 
 
-  //event listener for add button
-
+      // event listener for add button
+  
+      projAddButton.addEventListener('click', () => {
+        if (nameInput.value === "") {
+          // eslint-disable-next-line no-alert
+          alert("New project needs a name!");
+        } else {
+          const newProj = projectConstructor(nameInput.value);
+          projectsArr.push(newProj);
+          console.log(projectsArr);
+          nameInput.value = null;
+        };
+      });  
 
 })();
 
-
 // setup interactive elements for each window
 
-// create array for projects & todo items
-let projectsArr = [
-  {
-    name: "shopping",
-    todo: ["test","test","test"],
-  },
-  {
-    name: "work",
-    todo: ["test2","test2","Test2"],
-  },
-  {
-    name: "thisweek",
-    todo: ["test3","test3","Test3"],
-  },
-];
 
 
 // Dom loaders for proj & todos (for now until build into objects)
 
-//dom loader for projects list & todo's
-const loadProjDom = () => {
- projectsArr.forEach((item) => {
-  const projContainer = document.querySelector(".projContainer"); 
-  
-  const proj = document.createElement("div");
-  proj.classList.add(item.name);
+// dom loader for projects list & todo's
+const navDomInteraction = () => {
+ 
+  // loads dom objects to nav panel
+  projectsArr.forEach((item) => {
+    const projContainer = document.querySelector(".projContainer");
 
-  proj.innerText = `${item.name}
-  Todo: ${item.todo.length}`
+    const proj = document.createElement("div");
+    proj.classList.add(item.name);
 
-  projContainer.appendChild(proj);
+    proj.innerText = `${item.name}
+  Todo: ${item.todo.length}`;
+
+    projContainer.appendChild(proj);
 
     // function to remove all child elements
     const removeAllChildNodes = (parent) => {
       while (parent.firstChild) {
-          parent.removeChild(parent.firstChild);
+        parent.removeChild(parent.firstChild);
       }
-  };
+    };
 
     // event listener for div to load todos to main nav on click
-  proj.addEventListener('click', (e) => {
+    proj.addEventListener("click", (e) => {
+      const mainNav = document.querySelector(".mainPanel");
 
-    const mainNav = document.querySelector(".mainPanel");
+      removeAllChildNodes(mainNav);
 
-    removeAllChildNodes(mainNav);
+      const newArr = projectsArr
+        .filter((item) => item.name === e.target.className)
+        .map((x) => x.todo);
 
-    const newArr = projectsArr.filter((item) => item.name === e.target.className).map((x) => x.todo);
+      console.log(newArr);
 
-    console.log(newArr);
-
-    newArr[0].forEach((item) => {
-
-      const todoDiv = document.createElement("div");
-      todoDiv.classList.add("todoDiv");
-      todoDiv.innerText = item;
-      mainNav.appendChild(todoDiv);
-    }) 
-
+      newArr[0].forEach((item) => {
+        const todoDiv = document.createElement("div");
+        todoDiv.classList.add("todoDiv");
+        todoDiv.innerText = item;
+        mainNav.appendChild(todoDiv);
+      });
+    });
   });
+};
 
+navDomInteraction();
 
-
- })};
-
-loadProjDom(); 
 
 // dom event listener for loading todos to main
 
-// project constructor
-const projectConstructor = (name) => {
-    
-    let todo = []
-    
-    const pushToArr = () => {
-      projectsArr.push(this);
-    };
 
-    const delFromArr = () => {
-     const myArray = projectsArr.filter((item) => item.name !== this.name);
-
-     projectsArr = myArray;
-    };
-
-    const addToDiv = () => {
-        const navPanelSelect = document.querySelector(".navPanel");
-
-        let projectDiv = document.createElement("div");
-        projectDiv.innerText = name.value;
-        navPanelSelect.appendChild(projectDiv);
-
-    };
-
-
-  return {name, todo, projectConstructor, pushToArr, delFromArr}
-}
 
 //todo constructor
 
-
 // todo constructor
-  // add required properties for each item
-  // add methods for adding, deleting, nessicary interaction
-  // add methods for implementing to dom
+// add required properties for each item
+// add methods for adding, deleting, nessicary interaction
+// add methods for implementing to dom
