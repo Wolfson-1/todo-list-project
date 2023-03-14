@@ -4,11 +4,48 @@ import {projectsArr, projectConstructor} from "./index"
  
  // function to remove all child elements
 // eslint-disable-next-line import/prefer-default-export
+
+// create element & append 
+export const createElement = (type,tag,inner,parent) => {
+        let el = document.createElement(type);
+        el.classList.add(tag);
+        el.innerHTML = inner;
+        parent.appendChild(el);
+}
+
+// function removes all child nodes in a div
 export const removeAllChildNodes = (parent) => {
         while (parent.firstChild) {
           parent.removeChild(parent.firstChild);
         }
       };
+
+// function loads todos to main panel div
+export const loadTodos = (projname) => {
+        const mainNav = document.querySelector(".mainPanel");
+        removeAllChildNodes(mainNav);
+  
+        const newArr = projectsArr
+          .filter((item) => item.name.replace(/\s/g, '') === projname)
+          .map((x) => x.todo);
+  
+        newArr[0].forEach((item) => {
+          const todoDiv = document.createElement("div");
+          todoDiv.classList.add("todoDiv");
+          todoDiv.innerText = item;
+          mainNav.appendChild(todoDiv);
+        });
+
+        // create addTodo div so user can add divs in each window
+        createElement("div","addTodoDiv","Add",mainNav);
+        
+        const addTodoDiv = document.querySelector(".addTodoDiv");
+        createElement("button","addTodoButton","+",addTodoDiv);
+
+        const addTodoButton = document.querySelector(".addTodoButton");
+
+      };
+
 
       export const navDomInteraction = () => {
  
@@ -17,7 +54,7 @@ export const removeAllChildNodes = (parent) => {
           const projContainer = document.querySelector(".projContainer");
       
           const proj = document.createElement("div");
-          proj.classList.add(item.name);
+          proj.classList.add(item.name.replace(/\s/g, ''));
       
           proj.innerText = `${item.name}
         Todo: ${item.todo.length}`;
@@ -26,22 +63,8 @@ export const removeAllChildNodes = (parent) => {
       
           // event listener for div to load todos to main nav on click
           proj.addEventListener("click", (e) => {
-            const mainNav = document.querySelector(".mainPanel");
-      
-            removeAllChildNodes(mainNav);
-      
-            const newArr = projectsArr
-              .filter((item) => item.name === e.target.className)
-              .map((x) => x.todo);
-      
-            console.log(newArr);
-      
-            newArr[0].forEach((item) => {
-              const todoDiv = document.createElement("div");
-              todoDiv.classList.add("todoDiv");
-              todoDiv.innerText = item;
-              mainNav.appendChild(todoDiv);
-            });
+            // load todo's for specific projects on click
+            loadTodos(e.target.className);
           });
         });
       };
