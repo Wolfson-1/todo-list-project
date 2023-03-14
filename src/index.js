@@ -1,8 +1,9 @@
 import "./stylesheet.css";
-import {removeAllChildNodes} from "./domloader"
+import {createUi, navDomInteraction} from "./domloader"
 
 // create array for projects & todo items
-let projectsArr = [
+// eslint-disable-next-line import/prefer-default-export, import/no-mutable-exports
+export let projectsArr = [
   {
     name: "shopping",
     todo: ["test", "test", "test"],
@@ -17,44 +18,8 @@ let projectsArr = [
   },
 ];
 
-const navDomInteraction = () => {
- 
-  // loads dom objects to nav panel
-  projectsArr.forEach((item) => {
-    const projContainer = document.querySelector(".projContainer");
-
-    const proj = document.createElement("div");
-    proj.classList.add(item.name);
-
-    proj.innerText = `${item.name}
-  Todo: ${item.todo.length}`;
-
-    projContainer.appendChild(proj);
-
-    // event listener for div to load todos to main nav on click
-    proj.addEventListener("click", (e) => {
-      const mainNav = document.querySelector(".mainPanel");
-
-      removeAllChildNodes(mainNav);
-
-      const newArr = projectsArr
-        .filter((item) => item.name === e.target.className)
-        .map((x) => x.todo);
-
-      console.log(newArr);
-
-      newArr[0].forEach((item) => {
-        const todoDiv = document.createElement("div");
-        todoDiv.classList.add("todoDiv");
-        todoDiv.innerText = item;
-        mainNav.appendChild(todoDiv);
-      });
-    });
-  });
-};
-
 // project constructor
-const projectConstructor = (name) => {
+export const projectConstructor = (name) => {
   let todo = [];
 
   const pushToArr = () => {
@@ -71,8 +36,11 @@ const projectConstructor = (name) => {
 };
 
 // setup UI for todo page
+createUi();
+
+
 // eslint-disable-next-line no-unused-vars
-const createUi = (() => {
+/* const createUi = (() => {
   // main divs
   const mainDiv = document.querySelector(".content");
 
@@ -129,11 +97,9 @@ const createUi = (() => {
         };
       });  
 
-})();
+})(); */
 
 // setup interactive elements for each window
-
-
 
 // Dom loaders for proj & todos (for now until build into objects)
 
