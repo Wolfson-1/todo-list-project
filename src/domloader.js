@@ -1,5 +1,6 @@
 import "./stylesheet.css";
-import {projectsArr, projectConstructor} from "./index"
+import {projectsArr} from "./index"
+import {projectConstructor} from "./constructors"
 // eslint-disable-next-line import/extensions
  
  // function to remove all child elements
@@ -19,6 +20,56 @@ export const removeAllChildNodes = (parent) => {
           parent.removeChild(parent.firstChild);
         }
       };
+
+// addTodoModal
+    export const laodModal = () => {
+      const mainDiv = document.querySelector(".content");
+
+      // create modal
+      createElement("div","modalDiv",null,mainDiv);
+      const modalDiv = document.querySelector(".modalDiv");
+
+      // create button to close modal
+      createElement("button","closeModal","X",modalDiv);
+      
+      // create form
+      createElement("form","todoform",null,modalDiv);
+      const todoform = document.querySelector(".todoform");
+
+      // create title input
+      createElement("label","todoNameLabel","Name",todoform);
+      const todoNameLabel = document.querySelector(".todoNameLabel").htmlFor = "todoName";
+      createElement("input","todoName",null,todoform);
+      const todoName = document.querySelector(".todoName")
+      todoName.type = "text";
+      
+
+      // create due date
+      createElement("label","todoDateLabel","Due Date",todoform);
+      const todoDateLabel = document.querySelector(".todoDateLabel").htmlFor = "todoDate";
+      createElement("input","todoDate",null,todoform);
+      const todoDate = document.querySelector(".todoDate")
+      todoDate.type = "date";
+
+
+      // create description
+      createElement("label","todoDescLabel","Description",todoform);
+      const todoDescLabel = document.querySelector(".todoDescLabel").htmlFor = "todoDesc";
+      createElement("input","todoDesc",null,todoform);
+      const todoDesc = document.querySelector(".todoDesc")
+      todoDesc.type = "Text";
+
+      // load priority
+      createElement("label","todoPriorityLabel","Priority",todoform);
+      const todoPriorityLabel = document.querySelector(".todoDescLabel").htmlFor = "todoPriority";
+      createElement("input","todoPriority",null,todoform);
+      const todoPriority = document.querySelector(".todoPriority")
+      todoDesc.type = "Text";
+
+      // add button to push new todo to relevant project
+      createElement("button","addTodo","Add",modalDiv);
+
+    }
 
 // function loads todos to main panel div
 export const loadTodos = (projname) => {
@@ -43,6 +94,10 @@ export const loadTodos = (projname) => {
         createElement("button","addTodoButton","+",addTodoDiv);
 
         const addTodoButton = document.querySelector(".addTodoButton");
+
+        addTodoButtonm.addEventListener('click',() => {
+
+        })
 
       };
 

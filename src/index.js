@@ -1,5 +1,7 @@
 import "./stylesheet.css";
-import {createUi, loadTodos, navDomInteraction} from "./domloader"
+import {createUi, loadTodos, navDomInteraction, laodModal} from "./domloader"
+import {todoConstructor, projectConstructor} from "./constructors";
+
 
 // create array for projects & todo items
 // eslint-disable-next-line import/prefer-default-export, import/no-mutable-exports
@@ -18,48 +20,12 @@ export let projectsArr = [
   },
 ];
 
-// todo constructor
-const todoConstructor = (parentproj,title,description,duedate,priority) => {
-
-  const pushToProj = () => {
-    projectsArr.forEach((item) => {
-        if(item.name == parentproj) {
-          item.todo.push(this);
-          loadTodos(parentproj);
-        }
-    });
-  };
-
-  return {title,description,duedate,priority,pushToProj}
-};
-// todo constructor
-// add required properties for each item
-// add methods for adding, deleting, nessicary interaction
-// add methods for implementing to dom
-
-
-// project constructor
-export const projectConstructor = (name) => {
-  let todo = [];
-
-  const pushToArr = () => {
-    projectsArr.push(this);
-  };
-
-  const delFromArr = () => {
-    const myArray = projectsArr.filter((item) => item.name !== this.name);
-
-    projectsArr = myArray;
-  };
-
-  return {name, todo, pushToArr, delFromArr};
-};
-
 // setup UI for todo page
 createUi();
 
 // dom loader for projects list & todo's
 navDomInteraction();
 
-
+//loads modal
+laodModal();
 
