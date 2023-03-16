@@ -1,14 +1,13 @@
 import "./stylesheet.css";
-import {createUi, loadTodos, navDomInteraction, laodModal} from "./domloader"
-import {todoConstructor, projectConstructor} from "./constructors";
-
+import { createUi, loadTodos, navDomInteraction, laodModal } from "./domloader";
+import { todoConstructor, projectConstructor } from "./constructors";
 
 // create array for projects & todo items
 // eslint-disable-next-line import/prefer-default-export, import/no-mutable-exports
 export let projectsArr = [
   {
     name: "shopping",
-    todo: ["test", "test", "test"],
+    todo: ["test"],
   },
   {
     name: "work",
@@ -28,4 +27,3 @@ navDomInteraction();
 
 //loads modal
 laodModal();
-

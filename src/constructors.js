@@ -3,18 +3,8 @@ import { projectsArr } from "./index";
 // import { loadTodos } from "./domloader";
 // todo constructor
 export const todoConstructor = (parentproj,title,description,duedate,priority) => {
-
-    const pushToProj = () => {
-      projectsArr.forEach((item) => {
-          if(item.name == parentproj) {
-            item.todo.push(this);
-            loadTodos(parentproj);
-          }
-      });
-    };
   
-    return {title,description,duedate,priority,pushToProj}
-  };
+  return {parentproj,title,description,duedate,priority}};
 
 
 // project constructor
