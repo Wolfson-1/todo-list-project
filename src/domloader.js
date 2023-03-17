@@ -164,42 +164,21 @@ export const createUi = () => {
   // main divs
   const mainDiv = document.querySelector(".content");
 
-  const header = document.createElement("div");
-  header.classList.add("header");
+  createElement("div","header",null,mainDiv);
+  createElement("div","navPanel",null,mainDiv);
+  createElement("div","mainPanel",null,mainDiv);
+  createElement("div","footer",null,mainDiv);
 
-  const navPanel = document.createElement("div");
-  navPanel.classList.add("navPanel");
-
-  const mainPanel = document.createElement("div");
-  mainPanel.classList.add("mainPanel");
-
-  const footer = document.createElement("div");
-  footer.classList.add("footer");
-
-  mainDiv.appendChild(header);
-  mainDiv.appendChild(navPanel);
-  mainDiv.appendChild(mainPanel);
-  mainDiv.appendChild(footer);
+  const navPanel = document.querySelector(".navPanel");
 
   // nav div setup
-  const projContainer = document.createElement("div");
-  projContainer.classList.add("projContainer");
-
-  const projAddButton = document.createElement("button");
-  projAddButton.classList.add("addButton");
-  projAddButton.innerText = "Add";
-
-  const nameInput = document.createElement("input");
-  nameInput.classList.add("nameInput");
+  const projContainer = createElement("div","projContainer",null,navPanel);
+  const projAddButton = createElement("button","addButton","Add",navPanel);
+  const nameInput = createElement("input","nameInput",null,navPanel);
   nameInput.type = "text";
   nameInput.placeholder = "project name";
 
-  navPanel.appendChild(projContainer);
-  navPanel.appendChild(projAddButton);
-  navPanel.appendChild(nameInput);
-
   // event listener for add button
-
   projAddButton.addEventListener("click", () => {
     if (nameInput.value === "") {
       // eslint-disable-next-line no-alert

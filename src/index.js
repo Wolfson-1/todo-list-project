@@ -6,16 +6,8 @@ import { todoConstructor, projectConstructor } from "./constructors";
 // eslint-disable-next-line import/prefer-default-export, import/no-mutable-exports
 export let projectsArr = [
   {
-    name: "shopping",
-    todo: ["test"],
-  },
-  {
-    name: "work",
-    todo: ["test2", "test2", "Test2"],
-  },
-  {
-    name: "thisweek",
-    todo: ["test3", "test3", "Test3"],
+    name: "main",
+    todo: [],
   },
 ];
 
