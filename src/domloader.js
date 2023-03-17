@@ -31,10 +31,15 @@ export const loadTodos = (projname) => {
     .map((x) => x.todo);
 
   newArr[0].forEach((item) => {
-    const todoDiv = document.createElement("div");
-    todoDiv.classList.add(projname);
-    todoDiv.innerText = item;
-    mainNav.appendChild(todoDiv);
+
+   createElement("div",`${projname}todo`,null,mainNav);
+   const todoDiv = document.querySelector(`.${projname}todo`);
+
+   // create divs for todo details
+    createElement("div",null,item.title,todoDiv);
+    createElement("div",null,item.duedate,todoDiv);
+    createElement("div",null,item.description,todoDiv);
+    createElement("div",null,item.priority,todoDiv);
   });
 
   // create addTodo div so user can add divs in each window
@@ -134,7 +139,7 @@ export const laodModal = () => {
 
   addTodo.addEventListener("click", () => {
     const mainNav =
-      document.querySelector(".mainPanel").firstChild.classList.value;
+      document.querySelector(".mainPanel").firstChild.classList.value.replace(/todo/,"");
     console.log(mainNav);
 
     let newTodo = todoConstructor(
@@ -172,9 +177,12 @@ export const createUi = () => {
   const navPanel = document.querySelector(".navPanel");
 
   // nav div setup
-  const projContainer = createElement("div","projContainer",null,navPanel);
-  const projAddButton = createElement("button","addButton","Add",navPanel);
-  const nameInput = createElement("input","nameInput",null,navPanel);
+  createElement("div","projContainer",null,navPanel);
+  const projContainer = document.querySelector(".projContainer");
+  createElement("button","addButton","Add",navPanel);
+  const projAddButton = document.querySelector(".addButton");
+  createElement("input","nameInput",null,navPanel);
+  const nameInput = document.querySelector(".nameInput");
   nameInput.type = "text";
   nameInput.placeholder = "project name";
 

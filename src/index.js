@@ -6,8 +6,15 @@ import { todoConstructor, projectConstructor } from "./constructors";
 // eslint-disable-next-line import/prefer-default-export, import/no-mutable-exports
 export let projectsArr = [
   {
-    name: "main",
-    todo: [],
+    name: "tester",
+    todo: [
+      {
+        title: "test1",
+        duedate: "01.01.2023",
+        description: "This is a test desctiption of a test todo list item",
+        priority: "high"
+      },
+    ],
   },
 ];
 
@@ -17,5 +24,5 @@ createUi();
 // dom loader for projects list & todo's
 navDomInteraction();
 
-//loads modal
+// loads modal
 laodModal();
