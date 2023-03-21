@@ -9,6 +9,7 @@ export let projectsArr = [
     name: "tester",
     todo: [
       {
+        parentproj: "tester",
         title: "test1",
         duedate: "01.01.2023",
         description: "This is a test desctiption of a test todo list item",

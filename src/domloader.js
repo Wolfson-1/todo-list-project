@@ -30,17 +30,38 @@ export const loadTodos = (projname) => {
     .filter((item) => item.name.replace(/\s/g, "") === projname)
     .map((x) => x.todo);
 
-  newArr[0].forEach((item) => {
+  if (newArr.length > 0) {
+    newArr[0].forEach((item) => {
 
-   createElement("div",`${projname}todo`,null,mainNav);
-   const todoDiv = document.querySelector(`.${projname}todo`);
+    createElement("div",`${projname}todo`,null,mainNav);
+    const todoDiv = document.querySelector(`.${projname}todo`);
+ 
+    // create divs for todo details
+     createElement("div",null,item.title,todoDiv);
+     createElement("div",null,item.duedate,todoDiv);
+     createElement("div",null,item.description,todoDiv);
+     createElement("div",null,item.priority,todoDiv);
+     createElement("button",`delete${item.title}`,"Delete",todoDiv);
+ 
+     const delTodoButton = document.querySelector(`.delete${item.title}`);
+ 
+     delTodoButton.addEventListener('click',(e) => {
+ 
+       projectsArr.forEach((items) => {
+         if (items.name === e.target.parentElement.classList.value.replace(/todo/,"")) {
+           items.todo.forEach((beop) => {
+             if (beop.title === e.target.classList.value.replace(/delete/,"")) {
+             items.todo.splice(items.todo.indexOf(beop),1);
+             };
+           })
+           loadTodos(e.target.parentElement.classList.value.replace(/todo/,""));
+           navDomInteraction();
+         }
 
-   // create divs for todo details
-    createElement("div",null,item.title,todoDiv);
-    createElement("div",null,item.duedate,todoDiv);
-    createElement("div",null,item.description,todoDiv);
-    createElement("div",null,item.priority,todoDiv);
-  });
+       });
+     })
+   });
+  };  
 
   // create addTodo div so user can add divs in each window
   createElement("div", `${projname}add`, "Add", mainNav);
@@ -85,15 +106,13 @@ export const navDomInteraction = () => {
         const projDelButton = document.querySelector(`.projDelButton${item.name}`);
 
         projDelButton.addEventListener('click',(e) => {
-          console.log(e.target.parentElement.classList.value);
-          console.log("poop");
 
           projectsArr.forEach((item) => {
             if (item.name === e.target.parentElement.classList.value) {
               projectsArr.splice(projectsArr.indexOf(item),1)
               navDomInteraction();
             }
-          })
+          });
         });
 
   });
