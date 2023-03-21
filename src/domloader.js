@@ -60,9 +60,12 @@ export const loadTodos = (projname) => {
 };
 
 export const navDomInteraction = () => {
+  // clear projects div
+  removeAllChildNodes(document.querySelector(".projContainer"));
+  const projContainer = document.querySelector(".projContainer");
+
   // loads dom objects to nav panel
   projectsArr.forEach((item) => {
-    const projContainer = document.querySelector(".projContainer");
 
     const proj = document.createElement("div");
     proj.classList.add(item.name.replace(/\s/g, ""));
@@ -72,13 +75,31 @@ export const navDomInteraction = () => {
 
     projContainer.appendChild(proj);
 
-    // event listener for div to load todos to main nav on click
-    proj.addEventListener("click", (e) => {
-      // load todo's for specific projects on click
-      loadTodos(e.target.className);
-    });
+        // event listener for div to load todos to main nav on click
+        proj.addEventListener("click", (e) => {
+          // load todo's for specific projects on click
+          loadTodos(e.target.className);
+        });
+
+        createElement("button",`projDelButton${item.name}`,"Del",proj);
+        const projDelButton = document.querySelector(`.projDelButton${item.name}`);
+
+        projDelButton.addEventListener('click',(e) => {
+          console.log(e.target.parentElement.classList.value);
+          console.log("poop");
+
+          projectsArr.forEach((item) => {
+            if (item.name === e.target.parentElement.classList.value) {
+              projectsArr.splice(projectsArr.indexOf(item),1)
+              navDomInteraction();
+            }
+          })
+        });
+
   });
 };
+
+
 
 // addTodoModal
 export const laodModal = () => {
@@ -138,12 +159,20 @@ export const laodModal = () => {
   const addTodo = document.querySelector(".addTodo");
 
   addTodo.addEventListener("click", () => {
-    const mainNav =
-      document.querySelector(".mainPanel").firstChild.classList.value.replace(/todo/,"");
-    console.log(mainNav);
+    let mainNav = document.querySelector(".mainPanel").firstChild.classList.value
+    let finishedNav = "";
+
+    // if statement for if there are no todos.
+    if (mainNav.slice(-3) === "add") {
+      finishedNav = mainNav.replace(/add/,"");
+      console.log(finishedNav);
+    } else {
+      finishedNav = mainNav.replace(/todo/,"");
+      console.log(finishedNav);
+    };
 
     let newTodo = todoConstructor(
-      mainNav,
+      finishedNav,
       todoName.value,
       todoDesc.value,
       todoDate.value,
@@ -155,13 +184,21 @@ export const laodModal = () => {
         item.todo.push(newTodo);
       }
     });
-// close modal
+
+// clear & close modal
+todoName.value = "";
+todoDesc.value = "";
+todoDate.value = "";
+todoPriority.value = "";
+
 const modal = document.querySelector(".modalDiv").classList.remove("active");
 const modalOverlay = document.querySelector(".modalOverlay").classList.remove("active");
-// reload todos
-loadTodos();
+
 // reload projects (for counters)
 navDomInteraction();
+// reload todos
+loadTodos(finishedNav);
+
   });
 };
 

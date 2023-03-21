@@ -11,7 +11,7 @@ export const todoConstructor = (parentproj,title,description,duedate,priority) =
 export const projectConstructor = (name) => {
     let todo = [];
   
-    const pushToArr = () => {
+/*     const pushToArr = () => {
       projectsArr.push(this);
     };
   
@@ -19,7 +19,7 @@ export const projectConstructor = (name) => {
       const myArray = projectsArr.filter((item) => item.name !== this.name);
   
       projectsArr = myArray;
-    };
+    }; */
   
-    return {name, todo, pushToArr, delFromArr};
+    return {name, todo, /* pushToArr, delFromArr */};
   };
