@@ -107,22 +107,28 @@ export const navDomInteraction = () => {
         // event listener for div to load todos to main nav on click
         proj.addEventListener("click", (e) => {
           // load todo's for specific projects on click
+          if (e.target.className === item.name) {  
           loadTodos(e.target.className);
+          };
         });
 
-        createElement("button",`projDelButton${item.name}`,"Del",proj);
-        const projDelButton = document.querySelector(`.projDelButton${item.name}`);
+        if (item.name !== "General") {
+          createElement("button",`projDelButton${item.name}`,"Del",proj);
 
-        projDelButton.addEventListener('click',(e) => {
+          const projDelButton = document.querySelector(`.projDelButton${item.name}`);
 
-          projectsArr.forEach((item) => {
-            if (item.name === e.target.parentElement.classList.value) {
-              projectsArr.splice(projectsArr.indexOf(item),1)
-              navDomInteraction();
-            }
+          projDelButton.addEventListener('click',(e) => {
+  
+            projectsArr.forEach((obj) => {
+              if (obj.name === e.target.parentElement.classList.value) {
+                projectsArr.splice(projectsArr.indexOf(item),1)
+                navDomInteraction();
+              }
+            });
+            
+            removeAllChildNodes(document.querySelector(".mainPanel"));
           });
-        });
-
+        };
   });
 };
 
