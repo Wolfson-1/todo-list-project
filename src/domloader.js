@@ -55,9 +55,9 @@ export const loadTodos = (projname) => {
      delTodoButton.addEventListener('click',(e) => {
  
        projectsArr.forEach((items) => {
-         if (items.name === e.target.parentElement.classList.value.replace(/todo/,"")) {
+         if (items.name.replace(/\s/g, "") === e.target.parentElement.classList.value.replace(/todo/,"")) {
            items.todo.forEach((beop) => {
-             if (beop.title === e.target.classList.value.replace(/delete/,"")) {
+             if (beop.title.replace(/\s/g, "") === e.target.classList.value.replace(/delete/,"")) {
              items.todo.splice(items.todo.indexOf(beop),1);
              };
            })
@@ -107,20 +107,20 @@ export const navDomInteraction = () => {
         // event listener for div to load todos to main nav on click
         proj.addEventListener("click", (e) => {
           // load todo's for specific projects on click
-          if (e.target.className === item.name) {  
+          if (e.target.className === item.name.replace(/\s/g, "")) {  
           loadTodos(e.target.className);
           };
         });
 
         if (item.name !== "General") {
-          createElement("button",`projDelButton${item.name}`,"Del",proj);
+          createElement("button",`projDelButton${item.name.replace(/\s/g, "")}`,"Del",proj);
 
-          const projDelButton = document.querySelector(`.projDelButton${item.name}`);
+          const projDelButton = document.querySelector(`.projDelButton${item.name.replace(/\s/g, "")}`);
 
           projDelButton.addEventListener('click',(e) => {
   
             projectsArr.forEach((obj) => {
-              if (obj.name === e.target.parentElement.classList.value) {
+              if (obj.name.replace(/\s/g, "") === e.target.parentElement.classList.value.replace(/\s/g, "")) {
                 projectsArr.splice(projectsArr.indexOf(item),1)
                 navDomInteraction();
               }
@@ -213,7 +213,7 @@ export const laodModal = () => {
     );
 
     projectsArr.forEach((item) => {
-      if (item.name === newTodo.parentproj) {
+      if (item.name.replace(/\s/g, "") === newTodo.parentproj) {
         item.todo.push(newTodo);
       }
     });
