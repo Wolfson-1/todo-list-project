@@ -44,13 +44,13 @@ export const loadTodos = (projname) => {
      createElement("div",null,item.duedate,todoDiv);
      createElement("div",null,item.description,todoDiv);
      createElement("div",null,item.priority,todoDiv);
-     createElement("button",`delete${item.title}`,"Delete",todoDiv);
+     createElement("button",`delete${item.title.replace(/\s/g, "")}`,"Delete",todoDiv);
 
     
      mainNav.appendChild(todoDiv);
 
      // event listener for delete button
-     const delTodoButton = document.querySelector(`.delete${item.title}`);
+     const delTodoButton = document.querySelector(`.delete${item.title.replace(/\s/g, "")}`);
  
      delTodoButton.addEventListener('click',(e) => {
  
