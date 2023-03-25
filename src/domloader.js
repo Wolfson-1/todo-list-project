@@ -33,43 +33,53 @@ export const loadTodos = (projname) => {
 
   if (newArr.length > 0) {
     newArr[0].forEach((item) => {
-      
-    // create todo div to append todo information
-    const todoDiv = document.createElement("div");
-    todoDiv.classList.add(`${projname}todo`);
+      // create todo div to append todo information
+      const todoDiv = document.createElement("div");
+      todoDiv.classList.add(`${projname}todo`);
 
+      // create divs for todo details
+      createElement("div", null, item.title, todoDiv);
+      createElement("div", null, item.duedate, todoDiv);
+      createElement("div", null, item.description, todoDiv);
+      createElement("div", null, item.priority, todoDiv);
+      createElement(
+        "button",
+        `delete${item.title.replace(/\s/g, "")}`,
+        "Delete",
+        todoDiv
+      );
 
-    // create divs for todo details
-     createElement("div",null,item.title,todoDiv);
-     createElement("div",null,item.duedate,todoDiv);
-     createElement("div",null,item.description,todoDiv);
-     createElement("div",null,item.priority,todoDiv);
-     createElement("button",`delete${item.title.replace(/\s/g, "")}`,"Delete",todoDiv);
+      mainNav.appendChild(todoDiv);
 
-    
-     mainNav.appendChild(todoDiv);
+      // event listener for delete button
+      const delTodoButton = document.querySelector(
+        `.delete${item.title.replace(/\s/g, "")}`
+      );
 
-     // event listener for delete button
-     const delTodoButton = document.querySelector(`.delete${item.title.replace(/\s/g, "")}`);
- 
-     delTodoButton.addEventListener('click',(e) => {
- 
-       projectsArr.forEach((items) => {
-         if (items.name.replace(/\s/g, "") === e.target.parentElement.classList.value.replace(/todo/,"")) {
-           items.todo.forEach((beop) => {
-             if (beop.title.replace(/\s/g, "") === e.target.classList.value.replace(/delete/,"")) {
-             items.todo.splice(items.todo.indexOf(beop),1);
-             };
-           })
-           
-           loadTodos(e.target.parentElement.classList.value.replace(/todo/,""));
-           navDomInteraction();
-         }
-       });
-     })
+      delTodoButton.addEventListener("click", (e) => {
+        projectsArr.forEach((items) => {
+          if (
+            items.name.replace(/\s/g, "") ===
+            e.target.parentElement.classList.value.replace(/todo/, "")
+          ) {
+            items.todo.forEach((beop) => {
+              if (
+                beop.title.replace(/\s/g, "") ===
+                e.target.classList.value.replace(/delete/, "")
+              ) {
+                items.todo.splice(items.todo.indexOf(beop), 1);
+              }
+            });
 
-   });
-  };  
+            loadTodos(
+              e.target.parentElement.classList.value.replace(/todo/, "")
+            );
+            navDomInteraction();
+          }
+        });
+      });
+    });
+  }
 
   // create addTodo div so user can add divs in each window
   createElement("div", `${projname}add`, "Add", mainNav);
@@ -95,7 +105,6 @@ export const navDomInteraction = () => {
 
   // loads dom objects to nav panel
   projectsArr.forEach((item) => {
-
     const proj = document.createElement("div");
     proj.classList.add(item.name.replace(/\s/g, ""));
 
@@ -104,35 +113,42 @@ export const navDomInteraction = () => {
 
     projContainer.appendChild(proj);
 
-        // event listener for div to load todos to main nav on click
-        proj.addEventListener("click", (e) => {
-          // load todo's for specific projects on click
-          if (e.target.className === item.name.replace(/\s/g, "")) {  
-          loadTodos(e.target.className);
-          };
+    // event listener for div to load todos to main nav on click
+    proj.addEventListener("click", (e) => {
+      // load todo's for specific projects on click
+      if (e.target.className === item.name.replace(/\s/g, "")) {
+        loadTodos(e.target.className);
+      }
+    });
+
+    if (item.name !== "General") {
+      createElement(
+        "button",
+        `projDelButton${item.name.replace(/\s/g, "")}`,
+        "Del",
+        proj
+      );
+
+      const projDelButton = document.querySelector(
+        `.projDelButton${item.name.replace(/\s/g, "")}`
+      );
+
+      projDelButton.addEventListener("click", (e) => {
+        projectsArr.forEach((obj) => {
+          if (
+            obj.name.replace(/\s/g, "") ===
+            e.target.parentElement.classList.value.replace(/\s/g, "")
+          ) {
+            projectsArr.splice(projectsArr.indexOf(item), 1);
+            navDomInteraction();
+          }
         });
 
-        if (item.name !== "General") {
-          createElement("button",`projDelButton${item.name.replace(/\s/g, "")}`,"Del",proj);
-
-          const projDelButton = document.querySelector(`.projDelButton${item.name.replace(/\s/g, "")}`);
-
-          projDelButton.addEventListener('click',(e) => {
-  
-            projectsArr.forEach((obj) => {
-              if (obj.name.replace(/\s/g, "") === e.target.parentElement.classList.value.replace(/\s/g, "")) {
-                projectsArr.splice(projectsArr.indexOf(item),1)
-                navDomInteraction();
-              }
-            });
-            
-            removeAllChildNodes(document.querySelector(".mainPanel"));
-          });
-        };
+        removeAllChildNodes(document.querySelector(".mainPanel"));
+      });
+    }
   });
 };
-
-
 
 // addTodoModal
 export const laodModal = () => {
@@ -161,28 +177,32 @@ export const laodModal = () => {
 
   // create title input
   createElement("label", "todoNameLabel", "Name", todoform);
-  const todoNameLabel = (document.querySelector(".todoNameLabel").htmlFor = "todoName");
+  const todoNameLabel = (document.querySelector(".todoNameLabel").htmlFor =
+    "todoName");
   createElement("input", "todoName", null, todoform);
   const todoName = document.querySelector(".todoName");
   todoName.type = "text";
 
   // create due date
   createElement("label", "todoDateLabel", "Due Date", todoform);
-  const todoDateLabel = (document.querySelector(".todoDateLabel").htmlFor = "todoDate");
+  const todoDateLabel = (document.querySelector(".todoDateLabel").htmlFor =
+    "todoDate");
   createElement("input", "todoDate", null, todoform);
   const todoDate = document.querySelector(".todoDate");
   todoDate.type = "date";
 
   // create description
   createElement("label", "todoDescLabel", "Description", todoform);
-  const todoDescLabel = (document.querySelector(".todoDescLabel").htmlFor = "todoDesc");
+  const todoDescLabel = (document.querySelector(".todoDescLabel").htmlFor =
+    "todoDesc");
   createElement("input", "todoDesc", null, todoform);
   const todoDesc = document.querySelector(".todoDesc");
   todoDesc.type = "Text";
 
   // load priority
   createElement("label", "todoPriorityLabel", "Priority", todoform);
-  const todoPriorityLabel = (document.querySelector(".todoDescLabel").htmlFor = "todoPriority");
+  const todoPriorityLabel = (document.querySelector(".todoDescLabel").htmlFor =
+    "todoPriority");
   createElement("input", "todoPriority", null, todoform);
   const todoPriority = document.querySelector(".todoPriority");
   todoPriority.type = "Text";
@@ -192,17 +212,18 @@ export const laodModal = () => {
   const addTodo = document.querySelector(".addTodo");
 
   addTodo.addEventListener("click", () => {
-    let mainNav = document.querySelector(".mainPanel").firstChild.classList.value
+    let mainNav =
+      document.querySelector(".mainPanel").firstChild.classList.value;
     let finishedNav = "";
 
     // if statement for if there are no todos.
     if (mainNav.slice(-3) === "add") {
-      finishedNav = mainNav.replace(/add/,"");
+      finishedNav = mainNav.replace(/add/, "");
       console.log(finishedNav);
     } else {
-      finishedNav = mainNav.replace(/todo/,"");
+      finishedNav = mainNav.replace(/todo/, "");
       console.log(finishedNav);
-    };
+    }
 
     let newTodo = todoConstructor(
       finishedNav,
@@ -218,20 +239,23 @@ export const laodModal = () => {
       }
     });
 
-// clear & close modal
-todoName.value = "";
-todoDesc.value = "";
-todoDate.value = "";
-todoPriority.value = "";
+    // clear & close modal
+    todoName.value = "";
+    todoDesc.value = "";
+    todoDate.value = "";
+    todoPriority.value = "";
 
-const modal = document.querySelector(".modalDiv").classList.remove("active");
-const modalOverlay = document.querySelector(".modalOverlay").classList.remove("active");
+    const modal = document
+      .querySelector(".modalDiv")
+      .classList.remove("active");
+    const modalOverlay = document
+      .querySelector(".modalOverlay")
+      .classList.remove("active");
 
-// reload projects (for counters)
-navDomInteraction();
-// reload todos
-loadTodos(finishedNav);
-
+    // reload projects (for counters)
+    navDomInteraction();
+    // reload todos
+    loadTodos(finishedNav);
   });
 };
 
@@ -239,19 +263,19 @@ export const createUi = () => {
   // main divs
   const mainDiv = document.querySelector(".content");
 
-  createElement("div","header",null,mainDiv);
-  createElement("div","navPanel",null,mainDiv);
-  createElement("div","mainPanel",null,mainDiv);
-  createElement("div","footer",null,mainDiv);
+  createElement("div", "header", null, mainDiv);
+  createElement("div", "navPanel", null, mainDiv);
+  createElement("div", "mainPanel", null, mainDiv);
+  createElement("div", "footer", null, mainDiv);
 
   const navPanel = document.querySelector(".navPanel");
 
   // nav div setup
-  createElement("div","projContainer",null,navPanel);
+  createElement("div", "projContainer", null, navPanel);
   const projContainer = document.querySelector(".projContainer");
-  createElement("button","addButton","Add",navPanel);
+  createElement("button", "addButton", "Add", navPanel);
   const projAddButton = document.querySelector(".addButton");
-  createElement("input","nameInput",null,navPanel);
+  createElement("input", "nameInput", null, navPanel);
   const nameInput = document.querySelector(".nameInput");
   nameInput.type = "text";
   nameInput.placeholder = "project name";

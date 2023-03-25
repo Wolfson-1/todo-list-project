@@ -2,16 +2,19 @@ import "./stylesheet.css";
 import { projectsArr } from "./index";
 // import { loadTodos } from "./domloader";
 // todo constructor
-export const todoConstructor = (parentproj,title,description,duedate,priority) => {
-  
-  return {parentproj,title,description,duedate,priority}};
-
+export const todoConstructor = (
+  parentproj,
+  title,
+  description,
+  duedate,
+  priority
+) => ({ parentproj, title, description, duedate, priority });
 
 // project constructor
 export const projectConstructor = (name) => {
-    let todo = [];
-  
-/*     const pushToArr = () => {
+  let todo = [];
+
+  /*     const pushToArr = () => {
       projectsArr.push(this);
     };
   
@@ -20,6 +23,6 @@ export const projectConstructor = (name) => {
   
       projectsArr = myArray;
     }; */
-  
-    return {name, todo, /* pushToArr, delFromArr */};
-  };
+
+  return { name, todo /* pushToArr, delFromArr */ };
+};

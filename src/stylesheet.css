@@ -1,140 +1,140 @@
 body {
-    margin: 0;
-    background-color: bisque;
+  margin: 0;
+  background-color: bisque;
 }
 
 .content {
-    width: 100vw;
-    height: 100vh;
-    display:grid;
-    grid-template-columns: repeat(7, 1fr);
-    grid-template-rows: repeat(7,1fr);
+  width: 100vw;
+  height: 100vh;
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  grid-template-rows: repeat(7, 1fr);
 }
 
 .header {
-    grid-column: 1 / 8;
-    grid-row: 1/ 2;
-    background-color: brown;
-    border-radius: 0 0 100px 100px;
+  grid-column: 1 / 8;
+  grid-row: 1/ 2;
+  background-color: brown;
+  border-radius: 0 0 100px 100px;
 }
 
 .footer {
-    grid-column: 1 / 8;
-    grid-row: 7 / 8;
-    background-color: brown;
+  grid-column: 1 / 8;
+  grid-row: 7 / 8;
+  background-color: brown;
 }
 
 .navPanel {
-    grid-column: 1 / 2;
-    grid-row: 2 / 7;
-    background-color: rgb(255, 246, 83);
-    display:flex;
-    flex-direction: column;
-    margin: 20px;
-    border-radius: 20px;
+  grid-column: 1 / 2;
+  grid-row: 2 / 7;
+  background-color: rgb(255, 246, 83);
+  display: flex;
+  flex-direction: column;
+  margin: 20px;
+  border-radius: 20px;
 }
 
 .mainPanel {
-    grid-column: 2 / 8;
-    grid-row: 2 / 7;
-    background-color: rgb(255, 246, 83);
-    margin: 20px;
-    padding: 40px;
-    border-radius: 20px;
-    display: flex;
-    gap: 15px;
+  grid-column: 2 / 8;
+  grid-row: 2 / 7;
+  background-color: rgb(255, 246, 83);
+  margin: 20px;
+  padding: 40px;
+  border-radius: 20px;
+  display: flex;
+  gap: 15px;
 }
 
 .mainPanel > div {
-    border: solid darkblue;
-    height: 35%;
-    width: 15%;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
+  border: solid darkblue;
+  height: 35%;
+  width: 15%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 }
 
 .projContainer {
-    height: 80%;
-    width: 100%;
-    border-bottom: solid black;
-    background-color: rgb(223, 215, 67);
-    overflow: scroll;
-    border-radius: 20px 20px 0 0;
+  height: 80%;
+  width: 100%;
+  border-bottom: solid black;
+  background-color: rgb(223, 215, 67);
+  overflow: scroll;
+  border-radius: 20px 20px 0 0;
 }
 
 .projContainer > div {
-    margin: 15px;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
+  margin: 15px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
 }
 
 .navPanel > button {
-    justify-content: flex-end;
-    align-items:flex-end;
-    width: 15%;
-    margin: 5px;
+  justify-content: flex-end;
+  align-items: flex-end;
+  width: 15%;
+  margin: 5px;
 }
 
 .modalDiv {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    position: fixed;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%,-50%) scale(0);
-    transition: 200ms ease-in-out;
-    border: 1px black;
-    border-radius: 5px;
-    z-index: 10;
-    background-color: rgb(10, 10, 71);
-    width: 500px;
-    max-width: 80%;
-    height: 500px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) scale(0);
+  transition: 200ms ease-in-out;
+  border: 1px black;
+  border-radius: 5px;
+  z-index: 10;
+  background-color: rgb(10, 10, 71);
+  width: 500px;
+  max-width: 80%;
+  height: 500px;
 }
 
 .modalDiv.active {
-    transform: translate(-50%, -50%) scale(1);
+  transform: translate(-50%, -50%) scale(1);
 }
 
 .todoform {
-    display: flex;
-    flex-direction: column;
-    width: 60%;
+  display: flex;
+  flex-direction: column;
+  width: 60%;
 }
 
 .todoform > label {
-    flex: 1;
-    margin: 10px;
-    color: white;
+  flex: 1;
+  margin: 10px;
+  color: white;
 }
 
 .todoform > input {
-    width: 100%;
-    height: 20px;
+  width: 100%;
+  height: 20px;
 }
 
 .closeModal {
-    display: flex;
-    justify-content: flex-end;
+  display: flex;
+  justify-content: flex-end;
 }
 
 .modalOverlay {
-    position: fixed;
-    transition: 200ms ease-in-out;
-    opacity: 0;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background-color: rgba(0,0,0,.5);
-    pointer-events:none;
+  position: fixed;
+  transition: 200ms ease-in-out;
+  opacity: 0;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  pointer-events: none;
 }
 
 .modalOverlay.active {
-    pointer-events: all;
-    opacity: 1;
+  pointer-events: all;
+  opacity: 1;
 }
