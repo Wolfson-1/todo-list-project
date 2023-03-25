@@ -24,6 +24,7 @@ export const removeAllChildNodes = (parent) => {
 // function loads todos to main panel div
 export const loadTodos = (projname) => {
   const mainNav = document.querySelector(".mainPanel");
+
   removeAllChildNodes(mainNav);
 
   const newArr = projectsArr
@@ -32,17 +33,23 @@ export const loadTodos = (projname) => {
 
   if (newArr.length > 0) {
     newArr[0].forEach((item) => {
+      
+    // create todo div to append todo information
+    const todoDiv = document.createElement("div");
+    todoDiv.classList.add(`${projname}todo`);
 
-    createElement("div",`${projname}todo`,null,mainNav);
-    const todoDiv = document.querySelector(`.${projname}todo`);
- 
+
     // create divs for todo details
      createElement("div",null,item.title,todoDiv);
      createElement("div",null,item.duedate,todoDiv);
      createElement("div",null,item.description,todoDiv);
      createElement("div",null,item.priority,todoDiv);
      createElement("button",`delete${item.title}`,"Delete",todoDiv);
- 
+
+    
+     mainNav.appendChild(todoDiv);
+
+     // event listener for delete button
      const delTodoButton = document.querySelector(`.delete${item.title}`);
  
      delTodoButton.addEventListener('click',(e) => {
@@ -54,12 +61,13 @@ export const loadTodos = (projname) => {
              items.todo.splice(items.todo.indexOf(beop),1);
              };
            })
+           
            loadTodos(e.target.parentElement.classList.value.replace(/todo/,""));
            navDomInteraction();
          }
-
        });
      })
+
    });
   };  
 
